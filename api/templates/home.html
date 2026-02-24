@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<h1>Home Monitoring (Last 1 Hour)</h1>
+
+{% if error_message %}
+<p>{{ error_message }}</p>
+{% endif %}
+
+{% if records %}
+    {% for item in records %}
+    <section style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ccc; border-radius: 8px;">
+        <p><strong>Bucket (CET):</strong> {{ item.bucket_cet or 'N/A' }}</p>
+        <p><strong>Updated At (CET):</strong> {{ item.updated_at_cet or 'N/A' }}</p>
+
+        {% if item.sensors %}
+        <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 700px;">
+            <thead>
+                <tr>
+                    <th>Sensor</th>
+                    <th>Temperature (C)</th>
+                    <th>Humidity (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sensor in item.sensors %}
+                <tr>
+                    <td>{{ sensor.sensor_name }}</td>
+                    <td>{{ sensor.temp }}</td>
+                    <td>{{ sensor.hum }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No sensor readings in this record.</p>
+        {% endif %}
+    </section>
+    {% endfor %}
+{% else %}
+<p>No data found for the last 1 hour.</p>
+{% endif %}
+{% endblock content %}

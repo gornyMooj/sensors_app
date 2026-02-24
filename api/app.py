@@ -1,1 +1,1 @@
-﻿from basic import app
+﻿from api.basic import app

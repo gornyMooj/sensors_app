@@ -27,6 +27,7 @@ def _load_env_file(env_path: str = ".env") -> None:
                 os.environ[key] = value
 
 
+
 _load_env_file()
 
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "fallback-secret-key")
